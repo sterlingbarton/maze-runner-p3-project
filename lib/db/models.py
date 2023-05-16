@@ -20,6 +20,7 @@ class Maze(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    maze = Column(String)
     difficulty = Column(String)
 
     game = relationship('Game', back_populates='maze')
