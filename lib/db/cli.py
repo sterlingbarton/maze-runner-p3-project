@@ -3,12 +3,15 @@ import click
 from models import Maze, Game, User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.exc import NoResultFound
-from helpers import *
+from helpers import start_game, move_down, move_left, move_right, move_up, move_up, player_pos
 
 engine = create_engine('sqlite:///maze.db')
 Session = sessionmaker(bind=engine)
+
+
 # quit = True
+
+player_pos = [0, 0]
 
 
 @click.group()
@@ -24,6 +27,7 @@ def new_user(username):
     # session.add(user)
     # session.commit()
     click.echo(f'New player created: {username}')
+    set_difficulty(username=username)
 
 
 def validate_difficulty(difficulty):
@@ -34,9 +38,7 @@ def validate_difficulty(difficulty):
     return difficulty
 
 
-@cli.command()
-@click.option('--difficulty', help='Choose level of difficulty')
-def set_difficulty(difficulty):
+def set_difficulty(username):
     while True:
         input = click.prompt(
             'Enter a difficulty (easy, medium, hard)')
@@ -47,10 +49,30 @@ def set_difficulty(difficulty):
             session = Session()
             maze = session.query(Maze).filter(
                 Maze.difficulty == difficulty).first()
-            start_game(maze)
+            start_game(maze, username)
+            move()
             break
         except click.BadParameter as e:
             click.echo(e)
+
+
+def move():
+    while True:
+        direction = input(
+            'Type the direction you want to move in using "up", "down","right", or "left": ')
+        print(direction)
+        if direction == 'up':
+            move_up()
+        elif direction == 'down':
+            move_down()
+        elif direction == 'right':
+            move_right()
+        elif direction == 'left':
+            move_left()
+        else:
+            click.echo(
+                "Invalid direction. Use 'up', 'down','right', or 'left'")
+            return
 
 
 if __name__ == "__main__":
