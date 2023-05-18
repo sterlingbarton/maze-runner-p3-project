@@ -16,6 +16,26 @@ maze1 = Maze(name='maze1', maze=json.dumps([
     [1, 1, 0, 0, 'E']
 ]), difficulty='easy')
 
+maze2 = Maze(name='maze2', maze=json.dumps([
+    [0, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0],
+    [0, 0, 1, 1, 1],
+    [0, 1, 0, 0, 0],
+    [0, 0, 0, 1, "E"]
+]), difficulty='medium')
 
-session.add(maze1)
+maze3 = Maze(name='maze3', maze=json.dumps([
+    [0, 1, 0, 0, 1, 0],
+    [0, 0, 0, 1, 1, 0],
+    [0, 0, 0, 1, 0, 1],
+    [0, 1, 1, 0, 0, 0],
+    [0, 1, 0, 0, 0, 1],
+    [0, 0, 0, 1, 0, 'E']
+]), difficulty='hard')
+
+all_mazes = [maze1, maze2, maze3]
+# random = session.query(Maze).delete()
+
+
+session.add_all(all_mazes)
 session.commit()

@@ -29,8 +29,13 @@ def load_maze(maze):
     session = Session()
     global game_maze
     game_maze = json.loads(maze.maze)
-    for row in game_maze:
-        print(row)
+    for row in range(len(game_maze)):
+        for col in range(len(game_maze[row])):
+            if row == player_pos[0] and col == player_pos[1]:
+                print('X', end=' ')
+            else:
+                print(game_maze[row][col], end=' ')
+        print()
     session.close()
 
 
@@ -45,10 +50,17 @@ def start_game(maze, username):
 
 
 def move_up():
-    if player_pos[0] > 0:
+    if game_maze[player_pos[0] - 1][player_pos[1]] == 1:
+        print(Fore.RED + 'Cannot move that direction. Please try another')
+    elif player_pos[0] > 0:
         player_pos[0] -= 1
-
-        print(player_pos)
+        for row in range(len(game_maze)):
+            for col in range(len(game_maze[row])):
+                if row == player_pos[0] and col == player_pos[1]:
+                    print('X', end=' ')
+                else:
+                    print(game_maze[row][col], end=' ')
+            print()
     else:
         print(Fore.RED + 'Cannot move that direction. Please try another')
 
@@ -60,8 +72,17 @@ def move_up():
 
 def move_down():
     if player_pos[0] < len(game_maze) - 1:
-        player_pos[0] += 1
-        print(player_pos)
+        if game_maze[player_pos[0] + 1][player_pos[1]] == 1:
+            print(Fore.RED + 'Cannot move that direction. Please try another')
+        else:
+            player_pos[0] += 1
+            for row in range(len(game_maze)):
+                for col in range(len(game_maze[row])):
+                    if row == player_pos[0] and col == player_pos[1]:
+                        print('X', end=' ')
+                    else:
+                        print(game_maze[row][col], end=' ')
+                print()
     else:
         print(Fore.RED + 'Cannot move that direction. Please try another')
 
@@ -72,9 +93,17 @@ def move_down():
 
 
 def move_left():
-    if player_pos[1] > 0:
+    if game_maze[player_pos[0]][player_pos[1] - 1] == 1:
+        print(Fore.RED + 'Cannot move that direction. Please try another')
+    elif player_pos[1] > 0:
         player_pos[1] -= 1
-        print(player_pos)
+        for row in range(len(game_maze)):
+            for col in range(len(game_maze[row])):
+                if row == player_pos[0] and col == player_pos[1]:
+                    print('X', end=' ')
+                else:
+                    print(game_maze[row][col], end=' ')
+            print()
     else:
         print(Fore.RED + 'Cannot move that direction. Please try another')
 
@@ -86,8 +115,17 @@ def move_left():
 
 def move_right():
     if player_pos[1] < len(game_maze[0]) - 1:
-        player_pos[1] += 1
-        print(player_pos)
+        if game_maze[player_pos[0]][player_pos[1] + 1] == 1:
+            print(Fore.RED + 'Cannot move that direction. Please try another')
+        else:
+            player_pos[1] += 1
+            for row in range(len(game_maze)):
+                for col in range(len(game_maze[row])):
+                    if row == player_pos[0] and col == player_pos[1]:
+                        print('X', end=' ')
+                    else:
+                        print(game_maze[row][col], end=' ')
+                print()
     else:
         print(Fore.RED + 'Cannot move that direction. Please try another')
 

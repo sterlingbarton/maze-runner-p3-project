@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from helpers import start_game, move_down, move_left, move_right, move_up, move_up
 from colorama import Fore, Back, Style
+import sys
 
 engine = create_engine('sqlite:///maze.db')
 Session = sessionmaker(bind=engine)
@@ -21,6 +22,8 @@ def cli():
 @cli.command()
 @click.option('--username', prompt=(click.style('Enter a username', fg='green')), help="Choose your username")
 def new_user(username):
+    if username.lower() == "quit":
+        sys.exit(-1)
     # session = Session()
     user = User(username=username)
     # session.add(user)
@@ -30,6 +33,8 @@ def new_user(username):
 
 
 def validate_difficulty(difficulty):
+    if difficulty.lower() == "quit":
+        sys.exit(-1)
     valid_difficulty = ['easy', 'medium', 'hard']
     if difficulty not in valid_difficulty:
         raise click.BadParameter(click.style(
@@ -59,6 +64,8 @@ def move():
     while True:
         direction = input(click.style(
             'Type the direction you want to move in using "up", "down","right", or "left": ', fg='green'))
+        if direction.lower() == 'quit':
+            sys.exit(-1)
         if direction == 'up':
             move_up()
         elif direction == 'down':
