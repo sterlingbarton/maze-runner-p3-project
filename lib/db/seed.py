@@ -16,5 +16,6 @@ maze1 = Maze(name='maze1', maze=json.dumps([
     [1, 1, 0, 0, 'E']
 ]), difficulty='easy')
 
+
 session.add(maze1)
 session.commit()

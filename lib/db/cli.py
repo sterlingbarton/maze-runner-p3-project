@@ -3,13 +3,12 @@ import click
 from models import Maze, Game, User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from helpers import start_game, move_down, move_left, move_right, move_up, move_up, player_pos
+from helpers import start_game, move_down, move_left, move_right, move_up, move_up
+from colorama import Fore, Back, Style
 
 engine = create_engine('sqlite:///maze.db')
 Session = sessionmaker(bind=engine)
 
-
-# quit = True
 
 player_pos = [0, 0]
 
@@ -20,7 +19,7 @@ def cli():
 
 
 @cli.command()
-@click.option('--username', prompt='Enter a username', help="Choose your username")
+@click.option('--username', prompt=(click.style('Enter a username', fg='green')), help="Choose your username")
 def new_user(username):
     # session = Session()
     user = User(username=username)
@@ -33,15 +32,15 @@ def new_user(username):
 def validate_difficulty(difficulty):
     valid_difficulty = ['easy', 'medium', 'hard']
     if difficulty not in valid_difficulty:
-        raise click.BadParameter(
-            'Invalid difficulty. Please choose easy, medium, or hard.')
+        raise click.BadParameter(click.style(
+            'Invalid difficulty. Please choose easy, medium, or hard.', fg='red'))
     return difficulty
 
 
 def set_difficulty(username):
     while True:
-        input = click.prompt(
-            'Enter a difficulty (easy, medium, hard)')
+        input = click.prompt(click.style(
+            'Enter a difficulty (easy, medium, hard)', fg='green'))
         difficulty = input.lower()
         try:
             validate_difficulty(difficulty)
@@ -58,9 +57,8 @@ def set_difficulty(username):
 
 def move():
     while True:
-        direction = input(
-            'Type the direction you want to move in using "up", "down","right", or "left": ')
-        print(direction)
+        direction = input(click.style(
+            'Type the direction you want to move in using "up", "down","right", or "left": ', fg='green'))
         if direction == 'up':
             move_up()
         elif direction == 'down':
@@ -70,9 +68,8 @@ def move():
         elif direction == 'left':
             move_left()
         else:
-            click.echo(
-                "Invalid direction. Use 'up', 'down','right', or 'left'")
-            return
+            click.echo(click.style(
+                "Invalid direction. Use 'up', 'down','right', or 'left'", fg='red'))
 
 
 if __name__ == "__main__":

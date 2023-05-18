@@ -2,7 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Maze, Game, User
 import json
+
 import sys
+from colorama import Fore, Back, Style
 
 engine = create_engine('sqlite:///maze.db')
 Session = sessionmaker(bind=engine)
@@ -10,15 +12,15 @@ Session = sessionmaker(bind=engine)
 game_maze = None
 player_pos = [0, 0]
 
-celebrate = '''                                   .''.       
+celebrate = '''                                  .''.       
        .''.      .        *''*    :_\/_:     . 
       :_\/_:   _\(/_  .:.*_\/_*   : /\ :  .'.:.'.
   .''.: /\ :   ./)\   ':'* /\ * :  '..'.  -=:o:=-
  :_\/_:'.:::.    ' *''*    * '.\'/.' _\(/_'.':'.'
- : /\ : :::::     *_\/_*     -= o =-  /)\    '  *
+ : /\ : :::::     *_\/_*     -= o =- /)\    '  *
   '..'  ':::'     * /\ *     .'/.\'.   '
       *            *..*         :
-jgs     *
+        *
         *
 '''
 
@@ -48,10 +50,11 @@ def move_up():
 
         print(player_pos)
     else:
-        print('Cannot move that direction. Please try another')
+        print(Fore.RED + 'Cannot move that direction. Please try another')
 
     if player_pos == [len(game_maze) - 1, len(game_maze[0]) - 1]:
-        print(f'Congratulations, you have reached the goal!\n {celebrate}')
+        print(Fore.MAGENTA + Style.BRIGHT +
+              f'Congratulations, you have reached the goal!\n {celebrate}')
         sys.exit(-1)
 
 
@@ -60,10 +63,11 @@ def move_down():
         player_pos[0] += 1
         print(player_pos)
     else:
-        print('Cannot move that direction. Please try another')
+        print(Fore.RED + 'Cannot move that direction. Please try another')
 
     if player_pos == [len(game_maze) - 1, len(game_maze[0]) - 1]:
-        print(f'Congratulations, you have reached the goal!\n {celebrate}')
+        print(Fore.MAGENTA + Style.BRIGHT +
+              f'Congratulations, you have reached the goal!\n {celebrate}')
         sys.exit(-1)
 
 
@@ -72,10 +76,11 @@ def move_left():
         player_pos[1] -= 1
         print(player_pos)
     else:
-        print('Cannot move that direction. Please try another')
+        print(Fore.RED + 'Cannot move that direction. Please try another')
 
     if player_pos == [len(game_maze) - 1, len(game_maze[0]) - 1]:
-        print(f'Congratulations, you have reached the goal!\n {celebrate}')
+        print(Fore.MAGENTA + Style.BRIGHT +
+              f'Congratulations, you have reached the goal!\n {celebrate}')
         sys.exit(-1)
 
 
@@ -84,8 +89,9 @@ def move_right():
         player_pos[1] += 1
         print(player_pos)
     else:
-        print('Cannot move that direction. Please try another')
+        print(Fore.RED + 'Cannot move that direction. Please try another')
 
     if player_pos == [len(game_maze) - 1, len(game_maze[0]) - 1]:
-        print(f'Congratulations, you have reached the goal!\n {celebrate}')
+        print(Fore.MAGENTA + Style.BRIGHT +
+              f'Congratulations, you have reached the goal!\n {celebrate}')
         sys.exit(-1)
