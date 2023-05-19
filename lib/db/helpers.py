@@ -2,9 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Maze, Game, User
 import json
-
 import sys
 from colorama import Fore, Back, Style
+from playsound import playsound
 
 engine = create_engine('sqlite:///maze.db')
 Session = sessionmaker(bind=engine)
@@ -42,11 +42,11 @@ def load_maze(maze):
 def start_game(maze, username):
     load_maze(maze)
     session = Session()
-    user = session.query(User).filter(User.username == username).first
-    print(user)
-    # game = Game(maze.id, user.id)
-    # session.add(game)
-    # session.commit()
+    user = session.query(User).filter(User.username == username).first()
+    print(user.username)
+    game = Game(maze_id=maze.id, user_id=user.id)
+    session.add(game)
+    session.commit()
 
 
 def move_up():
@@ -67,6 +67,7 @@ def move_up():
     if player_pos == [len(game_maze) - 1, len(game_maze[0]) - 1]:
         print(Fore.MAGENTA + Style.BRIGHT +
               f'Congratulations, you have reached the goal!\n {celebrate}')
+        playsound('sound/trumpet-fanfare-royal-announcement-soundroll-1-00-06.mp3')
         sys.exit(-1)
 
 
@@ -89,6 +90,7 @@ def move_down():
     if player_pos == [len(game_maze) - 1, len(game_maze[0]) - 1]:
         print(Fore.MAGENTA + Style.BRIGHT +
               f'Congratulations, you have reached the goal!\n {celebrate}')
+        playsound('sound/trumpet-fanfare-royal-announcement-soundroll-1-00-06.mp3')
         sys.exit(-1)
 
 
@@ -110,6 +112,7 @@ def move_left():
     if player_pos == [len(game_maze) - 1, len(game_maze[0]) - 1]:
         print(Fore.MAGENTA + Style.BRIGHT +
               f'Congratulations, you have reached the goal!\n {celebrate}')
+        playsound('sound/trumpet-fanfare-royal-announcement-soundroll-1-00-06.mp3')
         sys.exit(-1)
 
 
@@ -132,4 +135,5 @@ def move_right():
     if player_pos == [len(game_maze) - 1, len(game_maze[0]) - 1]:
         print(Fore.MAGENTA + Style.BRIGHT +
               f'Congratulations, you have reached the goal!\n {celebrate}')
+        playsound('sound/trumpet-fanfare-royal-announcement-soundroll-1-00-06.mp3')
         sys.exit(-1)

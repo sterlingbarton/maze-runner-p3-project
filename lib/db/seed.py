@@ -35,7 +35,7 @@ maze3 = Maze(name='maze3', maze=json.dumps([
 
 all_mazes = [maze1, maze2, maze3]
 # random = session.query(Maze).delete()
+# users = session.query(User).delete()
 
-
-session.add_all(all_mazes)
-session.commit()
+# session.add_all(all_mazes)
+# session.commit()

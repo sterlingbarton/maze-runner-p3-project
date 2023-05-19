@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from helpers import start_game, move_down, move_left, move_right, move_up, move_up
 from colorama import Fore, Back, Style
+from playsound import playsound
 import sys
 
 engine = create_engine('sqlite:///maze.db')
@@ -24,10 +25,10 @@ def cli():
 def new_user(username):
     if username.lower() == "quit":
         sys.exit(-1)
-    # session = Session()
+    session = Session()
     user = User(username=username)
-    # session.add(user)
-    # session.commit()
+    session.add(user)
+    session.commit()
     click.echo(f'New player created: {username}')
     set_difficulty(username=username)
 
