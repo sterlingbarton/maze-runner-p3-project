@@ -6,7 +6,7 @@
 
 ## Where Do I Start?
 
-> Instructions: To begin, open the file in the terminal and cd into lib/db folder.
+> Instructions: To begin, fork and clone this repository then open the file in the terminal and cd into lib/db folder.
 > After, run python cli.py new-user to start the game.
 > The terminal will prompt you to enter a username and choose a difficulty, then present your chosen maze to you.
 
